@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "hexlet-code"
+version = "0.1.0"
+description = "Second project on Hexlet python course"
+authors = ["Viktor Shcherbakov <evil.logitech@gmail.com>"]
+readme = "README.md"
+packages = [{include = "gendiff"}]
+classifiers = [
+    "Programming Language :: Python :: 3.10",
+    "Operating System :: OS Independent",
+    "License :: Freeware",
+    "Natural Language :: English"
+]
+
+
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[tool.poetry.scripts]
+gendiff = "gendiff.gendiff:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
