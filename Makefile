@@ -1,3 +1,5 @@
+all: install build publish package-install lint
+
 install:
 	poetry install
 
