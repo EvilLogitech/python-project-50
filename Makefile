@@ -1,7 +1,3 @@
-all: install build publish package-install check
-
-check: lint test
-
 install:
 	poetry install
 
@@ -26,3 +22,7 @@ test:
 
 remove:
 	python3 -m pip uninstall hexlet-code
+
+all: install build publish package-install check
+
+check: lint test
