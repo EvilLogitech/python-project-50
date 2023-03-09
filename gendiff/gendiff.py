@@ -3,26 +3,26 @@ import json
 
 
 def generate_diff(file_path1, file_path2):
-    prefix = {
-        'file1': '  - ',
-        'file2': '  + ',
-        'both': '    '
-    }
     file1_json = json.load(open(file_path1))
     file2_json = json.load(open(file_path2))
-    all_keys = sorted(set(file1_json.keys()) | set(file2_json.keys()))
+    equal_keys = set(file1_json.keys()) & set(file2_json.keys())
+    f1_keys = {('  - ', x) for x in (set(file1_json.keys()) - equal_keys)}
+    f2_keys = {('  + ', x) for x in (set(file2_json.keys()) - equal_keys)}
+    equal_keys = {('    ', x) for x in equal_keys}
+    all_keys_list = sorted(f1_keys | f2_keys | equal_keys, key=lambda x: x[1])
     res = ['{']
-    for key in all_keys:
-        if (key in file1_json) and (key in file2_json):
-            if file1_json[key] == file2_json[key]:
-                res.append(f"{prefix['both']}{key}: {file1_json[key]}")
-            else:
-                res.append(f"{prefix['file1']}{key}: {file1_json[key]}")
-                res.append(f"{prefix['file2']}{key}: {file2_json[key]}")
-        elif key in file1_json:
-            res.append(f"{prefix['file1']}{key}: {file1_json[key]}")
-        else:
-            res.append(f"{prefix['file2']}{key}: {file2_json[key]}")
+    for prefix, key in all_keys_list:
+        match prefix:
+            case '  - ':
+                res.append(f'{prefix}{key}: {file1_json[key]}')
+            case '  + ':
+                res.append(f'{prefix}{key}: {file2_json[key]}')
+            case '    ':
+                if file1_json[key] == file2_json[key]:
+                    res.append(f'{prefix}{key}: {file1_json[key]}')
+                else:
+                    res.append(f'  - {key}: {file1_json[key]}')
+                    res.append(f'  + {key}: {file2_json[key]}')
     res.append('}')
     return '\n'.join(res)
 
@@ -39,6 +39,7 @@ def main():
     args = parser.parse_args()
 
     diff = generate_diff(args.first_file, args.second_file)
+    # diff = generate_diff('file1.json', 'file2.json')
     print(diff)
 
 

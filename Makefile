@@ -1,4 +1,6 @@
-all: install build publish package-install lint
+all: install build publish package-install check
+
+check: lint test
 
 install:
 	poetry install
@@ -17,6 +19,10 @@ gendiff:
 
 lint:
 	poetry run flake8 gendiff
+
+test:
+	poetry run pytest
+	poetry run pytest --cov
 
 remove:
 	python3 -m pip uninstall hexlet-code
