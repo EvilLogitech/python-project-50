@@ -23,6 +23,9 @@ test:
 remove:
 	python3 -m pip uninstall hexlet-code
 
+test-coverage:
+	poetry run pytest --cov=gendiff --cov-report xml
+
 all: install build publish package-install check
 
-check: lint test
+check: lint test test-coverage
