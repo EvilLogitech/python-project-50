@@ -12,13 +12,10 @@ classifiers = [
     "Natural Language :: English"
 ]
 
-
-
 [tool.poetry.dependencies]
 python = "^3.10"
 pytest = "^7.2.2"
 pytest-cov = "^4.0.0"
-
 
 [tool.poetry.scripts]
 gendiff = "gendiff.gendiff:main"
