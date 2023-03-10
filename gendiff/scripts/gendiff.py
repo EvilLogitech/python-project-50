@@ -1,30 +1,29 @@
+#!/usr/bin/env python3
 import argparse
 import json
+import yaml
+from gendiff.scripts.comparator import parse
 
 
 def generate_diff(file_path1, file_path2):
-    file1_json = json.load(open(file_path1))
-    file2_json = json.load(open(file_path2))
-    equal_keys = set(file1_json.keys()) & set(file2_json.keys())
-    f1_keys = {('  - ', x) for x in (set(file1_json.keys()) - equal_keys)}
-    f2_keys = {('  + ', x) for x in (set(file2_json.keys()) - equal_keys)}
-    equal_keys = {('    ', x) for x in equal_keys}
-    all_keys_list = sorted(f1_keys | f2_keys | equal_keys, key=lambda x: x[1])
-    res = ['{']
-    for prefix, key in all_keys_list:
-        match prefix:
-            case '  - ':
-                res.append(f'{prefix}{key}: {file1_json[key]}')
-            case '  + ':
-                res.append(f'{prefix}{key}: {file2_json[key]}')
-            case '    ':
-                if file1_json[key] == file2_json[key]:
-                    res.append(f'{prefix}{key}: {file1_json[key]}')
-                else:
-                    res.append(f'  - {key}: {file1_json[key]}')
-                    res.append(f'  + {key}: {file2_json[key]}')
-    res.append('}')
-    return '\n'.join(res)
+
+    def get_data_from_file(file_path):
+        extension = file_path[file_path.rindex('.'):]
+        match extension:
+            case '.yml' | '.yaml':
+                with open(file_path) as f:
+                    file_dict = yaml.safe_load(f)
+            case '.json':
+                with open(file_path) as f:
+                    file_dict = json.load(f)
+            case _:
+                return
+        return file_dict
+
+    return parse(
+        get_data_from_file(file_path1),
+        get_data_from_file(file_path2)
+    )
 
 
 def main():

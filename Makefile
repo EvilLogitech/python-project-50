@@ -16,6 +16,9 @@ gendiff:
 lint:
 	poetry run flake8 gendiff
 
+c-lint:
+	poetry run flake8 --max-cognitive-complexity=6 gendiff
+
 test:
 	poetry run pytest
 	poetry run pytest --cov
@@ -28,4 +31,4 @@ test-coverage:
 
 all: install build publish package-install check
 
-check: lint test test-coverage
+check: lint c-lint test test-coverage

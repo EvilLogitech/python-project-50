@@ -8,5 +8,7 @@
 Hexlet project 2.
 Parse two files, return difference between them.
 ## Asciinema records
-# Step 1
+# Plain JSON comparsion 
 [![asciicast](https://asciinema.org/a/TCKF2xJkeViLsqba18vNSzqQX.svg)](https://asciinema.org/a/TCKF2xJkeViLsqba18vNSzqQX)
+# Plain YAML and JSON comparsion
+[![asciicast](https://asciinema.org/a/HJciL2vPahTM1SDIoH8C91bm6.svg)](https://asciinema.org/a/HJciL2vPahTM1SDIoH8C91bm6)
