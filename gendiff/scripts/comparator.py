@@ -1,24 +1,21 @@
 #!/usr/bin/env python3
 
 
-def parse(dict1, dict2):
-    equal_keys = set(dict1.keys()) & set(dict2.keys())
-    f1_keys = {('  - ', x) for x in (set(dict1.keys()) - equal_keys)}
-    f2_keys = {('  + ', x) for x in (set(dict2.keys()) - equal_keys)}
-    equal_keys = {('    ', x) for x in equal_keys}
-    all_keys_list = sorted(f1_keys | f2_keys | equal_keys, key=lambda x: x[1])
-    res = ['{']
-    for prefix, key in all_keys_list:
-        match prefix:
-            case '  - ':
-                res.append(f'{prefix}{key}: {dict1[key]}')
-            case '  + ':
-                res.append(f'{prefix}{key}: {dict2[key]}')
-            case '    ':
-                if dict1[key] == dict2[key]:
-                    res.append(f'{prefix}{key}: {dict1[key]}')
-                else:
-                    res.append(f'  - {key}: {dict1[key]}')
-                    res.append(f'  + {key}: {dict2[key]}')
-    res.append('}')
-    return '\n'.join(res).replace('True', 'true').replace('False', 'false')
+def get_raw_diff(dict1, dict2):
+    diff = []
+    all_keys_list = sorted(set(dict1.keys()) | set(dict2.keys()))
+    for key in all_keys_list:
+        k1, k2 = dict1.get(key), dict2.get(key)
+        if not (key in dict1):
+            diff.append(('added', key, k2))
+        elif not (key in dict2):
+            diff.append(('removed', key, k1))
+        elif k1 == k2:
+            diff.append(('same', key, k1))
+        else:
+            if isinstance(k1, dict) and isinstance(k2, dict):
+                diff.append(('indent', key, get_raw_diff(k1, k2)))
+            else:
+                diff.append(('removed', key, k1))
+                diff.append(('added', key, k2))
+    return diff

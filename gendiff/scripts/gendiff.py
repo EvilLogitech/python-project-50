@@ -2,7 +2,8 @@
 import argparse
 import json
 import yaml
-from gendiff.scripts.comparator import parse
+from gendiff.scripts.comparator import get_raw_diff
+from gendiff.scripts.formatter import stylish
 
 
 def generate_diff(file_path1, file_path2):
@@ -20,7 +21,7 @@ def generate_diff(file_path1, file_path2):
                 return
         return file_dict
 
-    return parse(
+    return get_raw_diff(
         get_data_from_file(file_path1),
         get_data_from_file(file_path2)
     )
@@ -34,12 +35,17 @@ def main():
     parser._optionals.title = 'optional arguments'
     parser.add_argument("first_file")
     parser.add_argument("second_file")
-    parser.add_argument("-f", "--format", help="set format of output")
+    parser.add_argument("-f", "--format",
+                        help="set format of output",
+                        default='stylish')
     args = parser.parse_args()
 
     diff = generate_diff(args.first_file, args.second_file)
+
     # diff = generate_diff('file1.json', 'file2.json')
-    print(diff)
+    if args.format == 'stylish':
+        result = stylish(diff)
+    print(result)
 
 
 if __name__ == "__main__":
