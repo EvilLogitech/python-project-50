@@ -4,6 +4,8 @@ import itertools
 prefix = {
     'added': '  + ',
     'removed': '  - ',
+    'upd_f1': '  - ',
+    'upd_f2': '  + ',
     'same': '    ',
     'indent': '    '
 }
@@ -28,7 +30,7 @@ def parse_dict(some_dict, depth):
     return res_str[res_str.find('\n') + 1:]
 
 
-def stylish(diff):
+def get_formatted_string(diff):
 
     def walk(node, depth):
         res = ['{']
@@ -45,9 +47,5 @@ def stylish(diff):
             else:
                 res.append(f'{res_prefix}{key}: {walk(value, depth + 1)}')
         res.append(f'{depth_pref}}}')
-        res_string = '\n'.join(res)
-        res_string = res_string.replace('False', 'false')
-        res_string = res_string.replace('True', 'true')
-        res_string = res_string.replace('None', 'null')
-        return res_string
+        return '\n'.join(res)
     return walk(diff, 0)

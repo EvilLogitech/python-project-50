@@ -2,11 +2,14 @@
 import argparse
 import json
 import yaml
-from gendiff.scripts.comparator import get_raw_diff
-from gendiff.scripts.formatter import stylish
+from gendiff.text_parsers.comparator import get_raw_diff
+import gendiff.text_parsers.formatter_stylish as f_stylish
+import gendiff.text_parsers.formatter_plain as f_plain
+from gendiff.text_parsers.str_bool_lower import lower_bool_and_none
 
 
-def generate_diff(file_path1, file_path2):
+@lower_bool_and_none
+def generate_diff(file_path1, file_path2, format_name):
 
     def get_data_from_file(file_path):
         extension = file_path[file_path.rindex('.'):]
@@ -17,14 +20,17 @@ def generate_diff(file_path1, file_path2):
             case '.json':
                 with open(file_path) as f:
                     file_dict = json.load(f)
-            case _:
-                return
         return file_dict
-
-    return get_raw_diff(
+    diff = get_raw_diff(
         get_data_from_file(file_path1),
         get_data_from_file(file_path2)
     )
+    match format_name:
+        case 'stylish':
+            formatter = f_stylish
+        case 'plain':
+            formatter = f_plain
+    return formatter.get_formatted_string(diff)
 
 
 def main():
@@ -39,13 +45,8 @@ def main():
                         help="set format of output",
                         default='stylish')
     args = parser.parse_args()
-
-    diff = generate_diff(args.first_file, args.second_file)
-
-    # diff = generate_diff('file1.json', 'file2.json')
-    if args.format == 'stylish':
-        result = stylish(diff)
-    print(result)
+    diff = generate_diff(args.first_file, args.second_file, args.format)
+    print(diff)
 
 
 if __name__ == "__main__":

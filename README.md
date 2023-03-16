@@ -14,3 +14,5 @@ Parse two files, return difference between them.
 [![asciicast](https://asciinema.org/a/HJciL2vPahTM1SDIoH8C91bm6.svg)](https://asciinema.org/a/HJciL2vPahTM1SDIoH8C91bm6)
 # Recursive YAML and JSON comparsion
 [![asciicast](https://asciinema.org/a/Q4tzBxTrUHzLoMPqDMi5qhzkg.svg)](https://asciinema.org/a/Q4tzBxTrUHzLoMPqDMi5qhzkg)
+# Plain diff output
+[![asciicast](https://asciinema.org/a/ynpDQ8LBw0YEOFnbgXF99KOeU.svg)](https://asciinema.org/a/ynpDQ8LBw0YEOFnbgXF99KOeU)

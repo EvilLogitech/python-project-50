@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-
-
 def get_raw_diff(dict1, dict2):
     diff = []
     all_keys_list = sorted(set(dict1.keys()) | set(dict2.keys()))
@@ -16,6 +13,6 @@ def get_raw_diff(dict1, dict2):
             if isinstance(k1, dict) and isinstance(k2, dict):
                 diff.append(('indent', key, get_raw_diff(k1, k2)))
             else:
-                diff.append(('removed', key, k1))
-                diff.append(('added', key, k2))
+                diff.append(('upd_f1', key, k1))
+                diff.append(('upd_f2', key, k2))
     return diff
