@@ -38,9 +38,7 @@ def get_formatted_string(diff):
                 case 'upd_f2':
                     return get_string(pref, res_path, value, pre_value.pop())
                 case 'indent':
-                    y = inner(value, res_path)
-                    if y:
-                        res.append(y)
+                    res.append(inner(value, res_path))
             return '\n'.join(res)
         for item in inner_diff:
             result.append(walk(item, inner_path))

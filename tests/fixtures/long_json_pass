@@ -1,0 +1,106 @@
+[
+    {
+        "common": [
+            {
+                "keyStatus": "added",
+                 "follow": false
+            },
+            {
+                "keyStatus": "unchanged",
+                 "setting1": "Value 1"
+            },
+            {
+                "keyStatus": "removed",
+                 "setting2": 200
+            },
+            {
+                "keyStatus": "removed",
+                 "setting3": true
+            },
+            {
+                "keyStatus": "added",
+                 "setting3": null
+            },
+            {
+                "keyStatus": "added",
+                 "setting4": "blah blah"
+            },
+            {
+                "keyStatus": "added",
+                 "setting5": {
+                    "key5": "value5"
+                }
+            },
+            {
+                "setting6": [
+                    {
+                        "doge": [
+                            {
+                                "keyStatus": "removed",
+                                 "wow": ""
+                            },
+                            {
+                                "keyStatus": "added",
+                                 "wow": "so much"
+                            }
+                        ]
+                    },
+                    {
+                        "keyStatus": "unchanged",
+                         "key": "value"
+                    },
+                    {
+                        "keyStatus": "added",
+                         "ops": "vops"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "group1": [
+            {
+                "keyStatus": "removed",
+                 "baz": "bas"
+            },
+            {
+                "keyStatus": "added",
+                 "baz": "bars"
+            },
+            {
+                "keyStatus": "unchanged",
+                 "foo": "bar"
+            },
+            {
+                "keyStatus": "removed",
+                 "nest": {
+                    "key": "value"
+                }
+            },
+            {
+                "keyStatus": "added",
+                 "nest": "str"
+            }
+        ]
+    },
+    {
+        "keyStatus": "removed",
+         "group2": {
+            "abc": 12345,
+            "deep": {
+                "id": 45
+            }
+        }
+    },
+    {
+        "keyStatus": "added",
+         "group3": {
+            "deep": {
+                "id": {
+                    "number": 45
+                }
+            },
+            "fee": 100500
+        }
+    }
+]

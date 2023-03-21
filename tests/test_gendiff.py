@@ -15,8 +15,11 @@ with open('tests/fixtures/long_plain_pass') as f:
     plain_pass = f.read()
 with open('tests/fixtures/long_plain_fail') as f:
     plain_fail = f.read()
+with open('tests/fixtures/long_json_pass') as f:
+    json_pass = f.read()
 
 
+# PASS tests
 def test_big_json_stylish_pass():
     diff = generate_diff('tests/fixtures/examples/file1.json',
                          'tests/fixtures/examples/file2.json',
@@ -66,6 +69,14 @@ def test_json_yaml_short_pass():
     assert diff == short_stylish_pass
 
 
+def test_json_output_pass():
+    diff = generate_diff('tests/fixtures/examples/file1.json',
+                         'tests/fixtures/examples/file2.json',
+                         'json')
+    assert diff == json_pass
+
+
+# Fail tests
 def test_json_short_fail():
     diff = generate_diff('tests/fixtures/examples/file1_short.json',
                          'tests/fixtures/examples/file2_short.json',

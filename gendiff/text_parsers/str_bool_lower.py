@@ -7,6 +7,9 @@ def lower_bool_and_none(function):
         result = result.replace("'false'", 'false')
         result = result.replace("'true'", 'true')
         result = result.replace("'null'", 'null')
+        result = result.replace('"false"', 'false')
+        result = result.replace('"true"', 'true')
+        result = result.replace('"null"', 'null')
         result = result.replace("'[complex value]'", '[complex value]')
         return result
     return inner

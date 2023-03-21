@@ -7,6 +7,7 @@
 ## GennDiff
 Hexlet project 2.
 Parse two files, return difference between them.
+Possible outputs - plain, stylish, json
 ## Asciinema records
 # Plain JSON comparsion 
 [![asciicast](https://asciinema.org/a/TCKF2xJkeViLsqba18vNSzqQX.svg)](https://asciinema.org/a/TCKF2xJkeViLsqba18vNSzqQX)
@@ -16,3 +17,5 @@ Parse two files, return difference between them.
 [![asciicast](https://asciinema.org/a/Q4tzBxTrUHzLoMPqDMi5qhzkg.svg)](https://asciinema.org/a/Q4tzBxTrUHzLoMPqDMi5qhzkg)
 # Plain diff output
 [![asciicast](https://asciinema.org/a/ynpDQ8LBw0YEOFnbgXF99KOeU.svg)](https://asciinema.org/a/ynpDQ8LBw0YEOFnbgXF99KOeU)
+# JSON output
+[![asciicast](https://asciinema.org/a/EZRvJjo7unG7iPvL73h90PjDM.svg)](https://asciinema.org/a/EZRvJjo7unG7iPvL73h90PjDM)

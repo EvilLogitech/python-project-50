@@ -1,4 +1,20 @@
 def get_raw_diff(dict1, dict2):
+    """
+    This function returns difference between two files in next view:
+    [
+        ( prefix, key, value )
+        ...
+    ]
+    prefix = what happend with a key in files
+        - added
+        - removed
+        - same
+        - upd_f1 (value updated. Key in file1)
+        - upd_f2 (value updated. Key in file2)
+        - indent (value is complex, difference in children)
+
+    If value has changes in children it has same structure (list of tuples).
+    """
     diff = []
     all_keys_list = sorted(set(dict1.keys()) | set(dict2.keys()))
     for key in all_keys_list:

@@ -5,6 +5,7 @@ import yaml
 from gendiff.text_parsers.comparator import get_raw_diff
 import gendiff.text_parsers.formatter_stylish as f_stylish
 import gendiff.text_parsers.formatter_plain as f_plain
+import gendiff.text_parsers.formatter_json as f_json
 from gendiff.text_parsers.str_bool_lower import lower_bool_and_none
 
 
@@ -30,6 +31,8 @@ def generate_diff(file_path1, file_path2, format_name):
             formatter = f_stylish
         case 'plain':
             formatter = f_plain
+        case 'json':
+            formatter = f_json
     return formatter.get_formatted_string(diff)
 
 
