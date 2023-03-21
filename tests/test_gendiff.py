@@ -1,5 +1,4 @@
-#from gendiff.scripts.gendiff import generate_diff
-from gendiff import generate_diff
+from gendiff.scripts.generate_diff import generate_diff
 
 
 with open('tests/fixtures/short_check_pass') as f:
