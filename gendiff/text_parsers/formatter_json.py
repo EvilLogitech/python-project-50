@@ -1,6 +1,3 @@
-import re
-
-
 keys_status = {
     'added': '"keyStatus": "added"',
     'removed': '"keyStatus": "removed"',
@@ -54,7 +51,7 @@ def get_json_result_string(some_string):
                 result += f'\n{depth * indent}'
             case _:
                 result += char
-    result = re.sub(r': "(\d+\.?\d?)"', r': \1', result)
+    # result = re.sub(r': "(\d+\.?\d?)"', r': \1', result)
     return result
 
 
