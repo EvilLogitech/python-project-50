@@ -10,7 +10,7 @@ from gendiff.text_parsers.str_bool_lower import lower_bool_and_none
 
 
 @lower_bool_and_none
-def generate_diff(file_path1, file_path2, format_name):
+def generate_diff(file_path1, file_path2, format_name="stylish"):
 
     def get_data_from_file(file_path):
         extension = file_path[file_path.rindex('.'):]
