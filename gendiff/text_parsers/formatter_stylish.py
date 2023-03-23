@@ -43,7 +43,7 @@ def get_formatted_string(diff):
                     res.append(f'{res_prefix}{key}: {{\n'
                                f'{parse_dict(value, depth + 2)}')
                 else:
-                    res.append(f'{res_prefix}{key}: {value}'.rstrip())
+                    res.append(f'{res_prefix}{key}: {value}')
             else:
                 res.append(f'{res_prefix}{key}: {walk(value, depth + 1)}')
         res.append(f'{depth_pref}}}')
