@@ -15,6 +15,7 @@ gendiff:
 
 lint:
 	poetry run flake8 gendiff
+	poetry run flake8 tests
 
 c-lint:
 	poetry run flake8 --max-cognitive-complexity=6 gendiff

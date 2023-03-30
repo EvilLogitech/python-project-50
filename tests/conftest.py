@@ -4,6 +4,7 @@ import os
 
 tests_path = os.path.dirname(__file__)
 
+
 @pytest.fixture
 def expected_result(request):
     filepath = f'{tests_path}/fixtures/{request.param}'
