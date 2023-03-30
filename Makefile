@@ -20,7 +20,6 @@ c-lint:
 	poetry run flake8 --max-cognitive-complexity=6 gendiff
 
 test:
-	poetry run pytest
 	poetry run pytest --cov
 
 remove:
@@ -31,4 +30,6 @@ test-coverage:
 
 all: install build publish package-install check
 
-check: lint c-lint test test-coverage
+rebuild: remove build package-install check
+
+check: test test-coverage c-lint
