@@ -1,9 +1,9 @@
 keys_status = {
-    'added': '"keyStatus": "added"',
-    'removed': '"keyStatus": "removed"',
-    'upd_f1': '"keyStatus": "removed"',
-    'upd_f2': '"keyStatus": "added"',
-    'same': '"keyStatus": "unchanged"',
+    'added': '"keyStatus":"added"',
+    'removed': '"keyStatus":"removed"',
+    'updated': '"keyStatus":"updated"',
+    'unchanged': '"keyStatus":"unchanged"',
+    'nested': '"keyStatus":"nested"'
 }
 
 
@@ -19,7 +19,7 @@ def get_parsed_value(some_value):
             return f'"{str(node)}"'
         res = []
         for key, value in node.items():
-            res.append(f'"{key}": {walk_dict(value)},')
+            res.append(f'"{key}":{walk_dict(value)},')
         return f'{{{"".join(res)}}}'
     res_str = walk_dict(some_value)
     return res_str
@@ -51,7 +51,6 @@ def get_json_result_string(some_string):
                 result += f'\n{depth * indent}'
             case _:
                 result += char
-    # result = re.sub(r': "(\d+\.?\d?)"', r': \1', result)
     return result
 
 
@@ -60,20 +59,31 @@ def get_raw_string(diff):
     returns single-line bad json string with commas after each value
     """
     def parse_diff(node):
-        res = ['{']
-        pref, key, value = node
-        match pref:
-            case 'indent':
-                res.append(f'"{key}": {get_raw_string(value)}')
-            case _:
-                return (f'{{{keys_status[pref]}, "{key}": '
-                        f'{get_parsed_value(value)}}},')
-        res.append('}')
+        res = []
+        for item in node:
+            match item['key_status']:
+                case 'nested':
+                    res.append(
+                        f'{{{keys_status["nested"]},'
+                        f'"key":"{item["key"]}",'
+                        f'"children":['
+                        f'{parse_diff(item["children"])}]}},'
+                    )
+                case 'updated':
+                    res.append(
+                        f'{{{keys_status["updated"]},'
+                        f'"key":"{item["key"]}",'
+                        f'"oldValue":{get_parsed_value(item["old_value"])},'
+                        f'"newValue":{get_parsed_value(item["new_value"])}}},'
+                    )
+                case _:
+                    res.append(
+                        f'{{{keys_status[item["key_status"]]},'
+                        f'"key":"{item["key"]}",'
+                        f'"value":{get_parsed_value(item["value"])}}},'
+                    )
         return ''.join(res)
-    result = ['[']
-    for item in diff:
-        result.append(f'{parse_diff(item)},')
-    result.append(']')
+    result = ['[', parse_diff(diff), ']']
     return ''.join(result)
 
 
